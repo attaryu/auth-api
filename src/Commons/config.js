@@ -23,6 +23,10 @@ const config = {
 		user: process.env.PGUSER,
 		password: process.env.PGPASSWORD,
 		database: process.env.PGDATABASE,
+		ssl:
+			process.env.NODE_ENV === 'production'
+				? { rejectUnauthorized: false }
+				: false,
 	},
 };
 
