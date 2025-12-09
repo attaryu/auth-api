@@ -1,0 +1,8 @@
+node_modules
+coverage
+tests
+.env
+.test.env
+*.test.js
+__tests__
+_test
