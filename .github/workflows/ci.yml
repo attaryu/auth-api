@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [18.x]
     services:
       postgres:
         image: postgres:13
@@ -41,5 +41,5 @@ jobs:
           PGHOST: localhost
           PGPORT: 5432
           PGUSER: postgres
-          PGPASSWORD: mysecretpassword
-          PGDATABASE: forumapi_test
+          PGPASSWORD: root
+          PGDATABASE: authapi_test
