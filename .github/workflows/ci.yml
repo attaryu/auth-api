@@ -41,5 +41,5 @@ jobs:
           PGHOST: localhost
           PGPORT: 5432
           PGUSER: postgres
-          PGPASSWORD: mysecretpassword
-          PGDATABASE: forumapi_test
+          PGPASSWORD: root
+          PGDATABASE: authapi_test
