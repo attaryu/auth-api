@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "functions": {
-    "src/app.js": {
+    "api/app.js": {
       "memory": 1024,
       "maxDuration": 10
     }
@@ -10,7 +10,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/src/app.js"
+      "destination": "/api/app.js"
     }
   ]
 }
