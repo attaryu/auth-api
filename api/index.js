@@ -14,23 +14,26 @@ const initServer = async () => {
 };
 
 module.exports = async (req, res) => {
-	const hapiServer = await initServer();
+	try {
+		const hapiServer = await initServer();
 
-	const { rawPayload, ...rest } = req;
+		const response = await hapiServer.inject({
+			method: req.method,
+			url: req.url,
+			headers: req.headers,
+			payload: req.body,
+		});
 
-	const response = await hapiServer.inject({
-		method: req.method,
-		url: req.url,
-		headers: req.headers,
-		payload: rawPayload || req.body,
-		...rest,
-	});
+		res.statusCode = response.statusCode;
 
-	res.statusCode = response.statusCode;
+		Object.keys(response.headers).forEach((key) => {
+			res.setHeader(key, response.headers[key]);
+		});
 
-	Object.keys(response.headers).forEach((key) => {
-		res.setHeader(key, response.headers[key]);
-	});
-
-	res.end(response.result ? JSON.stringify(response.result) : response.payload);
+		res.end(response.payload);
+	} catch (error) {
+		console.error('Error:', error);
+		res.statusCode = 500;
+		res.end(JSON.stringify({ error: 'Internal Server Error' }));
+	}
 };
