@@ -4,12 +4,18 @@ const container = require('../../container');
 const createServer = require('../createServer');
 
 describe('users ', () => {
-	afterAll(async () => {
-		await pool.end();
+	let server;
+
+	beforeAll(async () => {
+		server = await createServer(container);
 	});
 
 	afterEach(async () => {
 		await UsersTableTestHelper.cleanTable();
+	});
+
+	afterAll(async () => {
+		await pool.end();
 	});
 
 	describe('when POST /users', () => {
@@ -42,7 +48,6 @@ describe('users ', () => {
 				fullname: 'Dicoding Indonesia',
 				password: 'secret',
 			};
-			const server = await createServer(container);
 
 			// Action
 			const response = await server.inject({
