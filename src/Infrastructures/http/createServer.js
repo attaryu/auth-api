@@ -1,8 +1,19 @@
 const Hapi = require('@hapi/hapi');
+const Inert = require('@hapi/inert');
+const Vision = require('@hapi/vision');
+const HapiSwagger = require('hapi-swagger');
+
 const users = require('../../Interfaces/http/api/users');
 const config = require('../../Commons/config');
 const DomainErrorTranslator = require('../../Commons/Exceptions/DomainErrorTranslator');
 const ClientError = require('../../Commons/Exceptions/ClientError');
+
+const swaggerOptions = {
+	info: {
+		title: 'Auth API Documentation',
+		version: '1.0.0',
+	},
+};
 
 const createServer = async (container) => {
 	const server = Hapi.server({
@@ -10,6 +21,20 @@ const createServer = async (container) => {
 		port: config.app.port,
 		debug: config.app.debug,
 	});
+
+	// external plugin
+	await server.register([
+		{
+			plugin: Inert,
+		},
+		{
+			plugin: Vision,
+		},
+		{
+			plugin: HapiSwagger,
+			options: swaggerOptions,
+		},
+	]);
 
 	await server.register([
 		{
@@ -31,6 +56,7 @@ const createServer = async (container) => {
 		const { response } = request;
 
 		if (response instanceof Error) {
+			console.log('response: ', response);
 			// bila response tersebut error, tangani sesuai kebutuhan
 			const translatedError = DomainErrorTranslator.translate(response);
 

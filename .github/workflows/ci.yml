@@ -3,12 +3,13 @@ on:
   pull_request:
     branches:
       - main
+      - dev
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
     services:
       postgres:
         image: postgres:13
@@ -43,3 +44,4 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: root
           PGDATABASE: authapi_test
+          DATABASE_URL: postgresql://postgres:root@localhost/authapi_test
