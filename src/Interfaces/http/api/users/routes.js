@@ -8,13 +8,14 @@ const routes = (handler) => [
 		options: {
 			description: 'Create a new user',
 			tags: ['api', 'users'],
-			validate: {
-				payload: Joi.object({
-					username: Joi.string().required().example('johndoe'),
-					password: Joi.string().required().example('secretpassword'),
-					fullname: Joi.string().required().example('John Doe'),
-				}).label('CreateUserPayload'),
-			},
+			// Validasi payload menggunakan entitas
+			// validate: {
+			// 	payload: Joi.object({
+			// 		username: Joi.string().required().example('johndoe'),
+			// 		password: Joi.string().required().example('secretpassword'),
+			// 		fullname: Joi.string().required().example('John Doe'),
+			// 	}).label('CreateUserPayload'),
+			// },
 			response: {
 				schema: Joi.object({
 					status: 'success',

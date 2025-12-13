@@ -44,3 +44,4 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: root
           PGDATABASE: authapi_test
+          DATABASE_URL: postgresql://postgres:root@localhost/authapi_test
